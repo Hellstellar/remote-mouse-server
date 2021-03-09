@@ -1,8 +1,7 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const http = require("http");
-const WebSocket = require("ws")
-
+const createWebSocketServer = require('./web-socket');
+ 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
@@ -15,27 +14,7 @@ const createWindow = () => {
     height: 600,
   });
 
-  const port = 4444;
-  const server = http.createServer();
-  const wss = new WebSocket.Server({ server });
-
-  wss.on("connection", (ws) => {
-    //connection is up, let's add a simple simple event
-    ws.on("message", (message) => {
-      //log the received message and send it back to the client
-      console.log("received: %s", message);
-      ws.send(`Hello, you sent -> ${message}`);
-    });
-    console.log('hello');
-
-    //send immediatly a feedback to the incoming connection
-    ws.send("Hi there, I am a WebSocket server");
-  });
-
-  //start our server
-  server.listen(port, () => {
-    console.log(`Data stream server started on port ${port}`);
-  });
+  createWebSocketServer(4444);
 
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
