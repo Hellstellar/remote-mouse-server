@@ -1,25 +1,31 @@
 const http = require("http");
 const WebSocket = require("ws");
 
-
 const createWebSocketServer = (port) => {
   const server = http.createServer();
   const webSocketServer = new WebSocket.Server({ server });
+  const clients = {
+    hammerSpoonClient: {},
+    mobileClient: {}
+  }
 
-  webSocketServer.on("connection", (WebSocket) => {
-    //connection is up, let's add a simple simple event
-    WebSocket.on("message", (message) => {
-      //log the received message and send it back to the client
+  webSocketServer.on("connection", (WebSocket,req) => {
+    if(req.url.includes("HammerSpoon")) {
+      console.log('hammerspoon connected')
+      clients.hammerSpoonClient = WebSocket
+    }
+    else if(req.url.includes("MobileClient")) {
+      console.log('mobile client connected')
+      clients.mobileClient = WebSocket
+    }
+    clients.mobileClient.on("message", (message) => {
       console.log("received: %s", message);
-      WebSocket.send(`Hello, you sent -> ${message}`);
+      clients.hammerSpoonClient.send(`${message}`);
     });
-    console.log("Client Connected")
 
-    //send immediatly a feedback to the incoming connection
-    WebSocket.send("Hi there, I am a WebSocket server");
+    WebSocket.send("Hi there, I am remote mouse");
   });
 
-  //start our server
   server.listen(port, () => {
     console.log(`Data stream server started on port ${port}`);
   });
