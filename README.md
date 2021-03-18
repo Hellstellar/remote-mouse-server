@@ -1,2 +1,1 @@
-# remote-mouse-server
-Server for remote mouse
+##Remote Mouse Server
