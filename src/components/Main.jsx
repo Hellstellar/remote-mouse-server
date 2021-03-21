@@ -2,9 +2,9 @@ import React, {useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Title from './Title'
+import Title from "./Title";
 import ConnectionStatusLayout from './Layout';
-import {makeStyles} from "@material-ui/core";
+import {Fade, makeStyles} from "@material-ui/core";
 
 const useStyles = makeStyles({
     root: {
@@ -33,7 +33,11 @@ export default () => {
                     >
                         { showStatus ? (
                                 <Grid item xs={12}>
-                                    <ConnectionStatusLayout/>
+                                    <Fade in>
+                                        <div>
+                                            <ConnectionStatusLayout/>
+                                        </div>
+                                    </Fade>
                                 </Grid>
                             ) : (
                                 <Grid style={{textAlign: 'center'}} item xs={12}>
