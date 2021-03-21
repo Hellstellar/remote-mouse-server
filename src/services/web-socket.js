@@ -1,4 +1,6 @@
 const http = require('http');
+const { URL } = require('url');
+const { parse: parseQuery } = require('querystring');
 const WebSocket = require('ws');
 
 const EConnectionStatus = {
@@ -7,7 +9,10 @@ const EConnectionStatus = {
     FAILED: 'failed'
 }
 
+const hammerspoonClientName = "Hammerspoon"
+
 const createWebSocketServer = (port, webContents) => {
+    const serverOrigin = `http://localhost:${port}`;
     const server = http.createServer();
     const webSocketServer = new WebSocket.Server({ server });
     const clients = {
@@ -16,7 +21,10 @@ const createWebSocketServer = (port, webContents) => {
     }
 
     webSocketServer.on("connection", (WebSocket,req) => {
-        if(req.url.includes("HammerSpoon")) {
+        const url = new URL(req.url, serverOrigin)
+        const queryParams = parseQuery(url.search.substr(1));
+
+        if(queryParams.clientName === hammerspoonClientName) {
             webContents.send('hammerspoon-status', EConnectionStatus.CONNECTED)
             console.log('hammerspoon connected')
             clients.hammerSpoonClient = WebSocket
