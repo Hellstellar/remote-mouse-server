@@ -1,12 +1,13 @@
 const http = require('http');
 const WebSocket = require('ws');
-const { ipcMain } = require('electron')
 
-ipcMain.on('asynchronous-message', (event, message) => {
-    event.reply('asynchronous-reply', 'pong')
-})
+const EConnectionStatus = {
+    CONNECTED: 'connected',
+    LOADING: 'loading',
+    FAILED: 'failed'
+}
 
-const createWebSocketServer = (port) => {
+const createWebSocketServer = (port, webContents) => {
     const server = http.createServer();
     const webSocketServer = new WebSocket.Server({ server });
     const clients = {
@@ -16,6 +17,7 @@ const createWebSocketServer = (port) => {
 
     webSocketServer.on("connection", (WebSocket,req) => {
         if(req.url.includes("HammerSpoon")) {
+            webContents.send('hammerspoon-status', EConnectionStatus.CONNECTED)
             console.log('hammerspoon connected')
             clients.hammerSpoonClient = WebSocket
         }

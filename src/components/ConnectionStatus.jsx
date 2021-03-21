@@ -1,18 +1,33 @@
 import React from 'react';
-import Grid from "@material-ui/core/Grid";
-import CheckCircleOutlineOutlinedIcon from '@material-ui/icons/CheckCircleOutlineOutlined';
+import CheckCircleOutlineOutlinedIcon from "@material-ui/icons/CheckCircleOutlineOutlined";
+import Typography from "@material-ui/core/Typography";
+import {EConnectionStatus} from "../constants/enums";
+import {makeStyles} from "@material-ui/core";
+import {ErrorOutline} from "@material-ui/icons";
 
-export default () => {
+const useStyles = makeStyles({
+    typography: {
+        color: 'white'
+    },
+})
+
+const ConnectionStatus = ({ status, clientMessage }) => {
+    const classes = useStyles();
     return (
         <>
-            <Grid container spacing={10}>
-                <Grid item xs={6}>
-                    <CheckCircleOutlineOutlinedIcon style={{ fontSize: 150, color: 'green' }}/>
-                </Grid>
-                <Grid item xs={6}>
-                    <CheckCircleOutlineOutlinedIcon style={{ fontSize: 150, color: 'green' }}/>
-                </Grid>
-            </Grid>
+            { status === EConnectionStatus.CONNECTED &&
+            <>
+                <CheckCircleOutlineOutlinedIcon style={{fontSize: 150, color: 'green'}}/>
+                <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.CONNECTED}</Typography>
+            </>
+            }
+            { status === EConnectionStatus.LOADING &&
+                <>
+                    <ErrorOutline style={{fontSize: 150, color: 'red'}}/>
+                    <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.LOADING}</Typography>
+                </>
+            }
         </>
     )
 }
+export default ConnectionStatus

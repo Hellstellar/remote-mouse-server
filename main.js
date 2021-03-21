@@ -16,9 +16,7 @@ if (
 	isDev = true
 }
 
-//Create Websocket Server
-const port = process.env.WEBSOCKET_PORT;
-createWebSocketServer(port)
+
 
 function createMainWindow() {
 	mainWindow = new BrowserWindow({
@@ -49,6 +47,10 @@ function createMainWindow() {
 	}
 
 	mainWindow.loadURL(indexPath)
+
+	//Create Websocket Server
+	const port = process.env.WEBSOCKET_PORT;
+	createWebSocketServer(port, mainWindow.webContents)
 
 	// Don't show until we are ready and loaded
 	mainWindow.once('ready-to-show', () => {
