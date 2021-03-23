@@ -10,6 +10,15 @@ const useStyles = makeStyles({
     typography: {
         color: colors.primary
     },
+    connected: {
+        fontSize: '140px',
+        color: colors.primary,
+    },
+    loading: {
+        fontSize: '140px',
+        color: colors.primary,
+        opacity: 0.6
+    }
 })
 
 const ConnectionStatus = ({ status, clientMessage }) => {
@@ -18,13 +27,13 @@ const ConnectionStatus = ({ status, clientMessage }) => {
         <>
             { status === EConnectionStatus.CONNECTED &&
             <>
-                <CheckCircleOutlineOutlinedIcon style={{fontSize: '120px'}} color='primary'/>
+                <CheckCircleOutlineOutlinedIcon className={classes.connected}/>
                 <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.CONNECTED}</Typography>
             </>
             }
             { status === EConnectionStatus.LOADING &&
                 <>
-                    <ErrorOutline style={{fontSize: '120px'}} color='secondary'/>
+                    <ErrorOutline className={classes.loading}/>
                     <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.LOADING}</Typography>
                 </>
             }
