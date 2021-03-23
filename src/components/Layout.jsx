@@ -9,10 +9,16 @@ export default () => {
     const [hammerspoonStatus, setHammerspoonStatus] = useState(EConnectionStatus.LOADING)
     const [mobileStatus, setMobileStatus] = useState(EConnectionStatus.LOADING)
     ipcRenderer.on('hammerspoon-status', (event, message) => {
-        if(message === 'connected') {
+        if(message === EConnectionStatus.CONNECTED) {
             setHammerspoonStatus(EConnectionStatus.CONNECTED)
         }
     })
+    ipcRenderer.on('mobile-status', (event, message) => {
+        if(message === EConnectionStatus.CONNECTED) {
+            setMobileStatus(EConnectionStatus.CONNECTED)
+        }
+    })
+
     return (
         <>
             <Grid container spacing={10}>

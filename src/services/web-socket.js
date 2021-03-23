@@ -10,6 +10,7 @@ const EConnectionStatus = {
 }
 
 const hammerspoonClientName = "Hammerspoon"
+const mobileClientName = "MobileClient"
 
 const createWebSocketServer = (port, webContents) => {
     const serverOrigin = `http://localhost:${port}`;
@@ -29,7 +30,8 @@ const createWebSocketServer = (port, webContents) => {
             console.log('hammerspoon connected')
             clients.hammerSpoonClient = WebSocket
         }
-        else if(req.url.includes("MobileClient")) {
+        else if(queryParams.clientName === mobileClientName) {
+            webContents.send('mobile-status', EConnectionStatus.CONNECTED)
             console.log('mobile client connected')
             clients.mobileClient = WebSocket
         }
