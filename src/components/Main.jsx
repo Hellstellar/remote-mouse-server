@@ -5,10 +5,11 @@ import Grid from '@material-ui/core/Grid';
 import Title from "./Title";
 import ConnectionStatusLayout from './Layout';
 import {Fade, makeStyles} from "@material-ui/core";
+import colors from '../constants/styling/colors'
 
 const useStyles = makeStyles({
     root: {
-        backgroundColor: '#343a40',
+        backgroundColor: colors.background,
         height: '100vh',
         width: '100%',
         textAlign: 'center'
