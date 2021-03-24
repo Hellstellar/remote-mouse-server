@@ -21,15 +21,11 @@ export default () => {
     const dividerClasses = dividerStyles()
 
     ipcRenderer.on('hammerspoon-status', (event, message) => {
-        if(message === EConnectionStatus.CONNECTED) {
-            setHammerspoonStatus(EConnectionStatus.CONNECTED)
-        }
+        setHammerspoonStatus(message)
     })
 
     ipcRenderer.on('mobile-status', (event, message) => {
-        if(message === EConnectionStatus.CONNECTED) {
-            setMobileStatus(EConnectionStatus.CONNECTED)
-        }
+        setMobileStatus(message)
     })
 
     return (
