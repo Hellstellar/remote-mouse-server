@@ -14,7 +14,7 @@ const useStyles = makeStyles({
         fontSize: '140px',
         color: colors.primary,
     },
-    loading: {
+    disconnected: {
         fontSize: '140px',
         color: colors.primary,
         opacity: 0.6
@@ -31,10 +31,10 @@ const ConnectionStatus = ({ status, clientMessage }) => {
                 <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.CONNECTED}</Typography>
             </>
             }
-            { status === EConnectionStatus.LOADING &&
+            { status === EConnectionStatus.DISCONNECTED &&
                 <>
-                    <ErrorOutline className={classes.loading}/>
-                    <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.LOADING}</Typography>
+                    <ErrorOutline className={classes.disconnected}/>
+                    <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.DISCONNECTED}</Typography>
                 </>
             }
         </>

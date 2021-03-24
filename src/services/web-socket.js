@@ -5,7 +5,7 @@ const WebSocket = require('ws');
 
 const EConnectionStatus = {
     CONNECTED: 'connected',
-    LOADING: 'loading',
+    DISCONNECTED: 'disconnected',
     FAILED: 'failed'
 }
 

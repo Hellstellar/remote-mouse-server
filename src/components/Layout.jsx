@@ -16,8 +16,8 @@ const dividerStyles = makeStyles({
 })
 
 export default () => {
-    const [hammerspoonStatus, setHammerspoonStatus] = useState(EConnectionStatus.LOADING)
-    const [mobileStatus, setMobileStatus] = useState(EConnectionStatus.LOADING)
+    const [hammerspoonStatus, setHammerspoonStatus] = useState(EConnectionStatus.DISCONNECTED)
+    const [mobileStatus, setMobileStatus] = useState(EConnectionStatus.DISCONNECTED)
     const dividerClasses = dividerStyles()
 
     ipcRenderer.on('hammerspoon-status', (event, message) => {
