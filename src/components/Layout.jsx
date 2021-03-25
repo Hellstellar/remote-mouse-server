@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Divider, makeStyles} from "@material-ui/core";
 import { ipcRenderer } from "electron";
@@ -20,13 +20,15 @@ export default () => {
     const [mobileStatus, setMobileStatus] = useState(EConnectionStatus.DISCONNECTED)
     const dividerClasses = dividerStyles()
 
-    ipcRenderer.on('hammerspoon-status', (event, message) => {
-        setHammerspoonStatus(message)
-    })
+    useEffect(() => {
+        ipcRenderer.on('hammerspoon-status', (event, message) => {
+            setHammerspoonStatus(message)
+        })
 
-    ipcRenderer.on('mobile-status', (event, message) => {
-        setMobileStatus(message)
-    })
+        ipcRenderer.on('mobile-status', (event, message) => {
+            setMobileStatus(message)
+        })
+    }, [])
 
     return (
         <>

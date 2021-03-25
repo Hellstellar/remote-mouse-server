@@ -21,14 +21,20 @@ const handleHammerspoonDisconnected = (clients, webContents) => {
     }
 };
 
+const handleMobileDisconnected = (clients, webContents) => {
+    if (clients.mobileClient) {
+        clients.mobileClient.on('close', () => {
+            console.log('mobile disconnected')
+            webContents.send('mobile-status', EConnectionStatus.DISCONNECTED)
+        })
+    }
+};
+
 const createWebSocketServer = (port, webContents) => {
     const serverOrigin = `http://localhost:${port}`;
     const server = http.createServer();
     const webSocketServer = new WebSocket.Server({ server });
-    const clients = {
-        hammerSpoonClient: {},
-        mobileClient: {}
-    }
+    const clients = {}
 
     webSocketServer.on("connection", (WebSocket,req) => {
         const url = new URL(req.url, serverOrigin)
@@ -46,6 +52,7 @@ const createWebSocketServer = (port, webContents) => {
         }
 
         handleHammerspoonDisconnected(clients, webContents);
+        handleMobileDisconnected(clients, webContents)
 
         WebSocket.on("message", (message) => {
             console.log("received: %s", message);
