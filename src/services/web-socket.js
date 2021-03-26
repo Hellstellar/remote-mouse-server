@@ -59,7 +59,7 @@ const createWebSocketServer = (port, webContents) => {
             clients.hammerSpoonClient.send(`${message}`);
         });
 
-        WebSocket.send("Hi there, I am remote mouse");
+        // WebSocket.send("Hi there, I am remote mouse");
     });
 
     server.listen(port, () => {
