@@ -16,7 +16,7 @@ const useStyles = makeStyles({
     },
 });
 
-export default () => {
+const Main = () => {
     const classes = useStyles()
     const [showStatus, setShowStatus] = useState(false)
     const handleTitleUnmount = () => {
@@ -51,3 +51,4 @@ export default () => {
         </React.Fragment>
     )
 }
+export default Main

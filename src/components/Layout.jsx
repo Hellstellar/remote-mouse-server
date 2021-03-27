@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
 import {Divider, makeStyles} from "@material-ui/core";
-import { ipcRenderer } from "electron";
 import ConnectionStatus from "./ConnectionStatus";
 import {EConnectionStatus, EHammerspoonStatusMessage, EMobileStatusMessage} from "../constants/enums";
 import colors from '../constants/styling/colors'
+const ipcRenderer = window.require("electron").ipcRenderer;
 
 const dividerStyles = makeStyles({
     root: {
@@ -15,7 +15,7 @@ const dividerStyles = makeStyles({
     }
 })
 
-export default () => {
+const Layout = () => {
     const [hammerspoonStatus, setHammerspoonStatus] = useState(EConnectionStatus.DISCONNECTED)
     const [mobileStatus, setMobileStatus] = useState(EConnectionStatus.DISCONNECTED)
     const dividerClasses = dividerStyles()
@@ -46,3 +46,4 @@ export default () => {
         </>
     )
 }
+export default Layout

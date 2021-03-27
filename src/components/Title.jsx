@@ -14,7 +14,7 @@ const useStyles = makeStyles({
     }
 })
 
-export default ({ handleTitleUnmount }) => {
+const Title = ({ handleTitleUnmount }) => {
     const [showTitle, setShowTitle] = React.useState(true);
     const classes = useStyles();
 
@@ -35,3 +35,4 @@ export default ({ handleTitleUnmount }) => {
         </>
     )
 }
+export default Title
