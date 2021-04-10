@@ -1,8 +1,5 @@
-const { moveMouse, getMousePos} = require("robotjs");
-
-const EMouseEvents = {
-    MOVE : "MOVE"
-}
+const { EMouseEvents } = require("../constants/enums");
+const { moveMouse, getMousePos, mouseClick } = require("robotjs");
 
 const moveCursor = (deltaX, deltaY) => {
     const mousePos = getMousePos()
@@ -14,8 +11,12 @@ const moveCursor = (deltaX, deltaY) => {
 const mouseEventPicker = (message) => {
     const [event, deltaX, deltaY] = message.split(' ')
     switch (event) {
-        case EMouseEvents.MOVE: moveCursor(deltaX, deltaY)
-                                break;
+        case EMouseEvents.MOVE:
+            moveCursor(deltaX, deltaY)
+            break;
+        case EMouseEvents.LEFT_CLICK:
+            mouseClick("left")
+            break
         default: console.error("Invalid event")
     }
 

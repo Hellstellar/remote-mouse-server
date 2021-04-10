@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Title from "./Title";
 import {Fade, makeStyles} from "@material-ui/core";
 import colors from '../constants/styling/colors'
-import {EConnectionStatus, EMobileStatusMessage} from "../constants/enums";
+import {EConnectionStatus, EMobileStatusMessage} from "../constants/ui-enums";
 import ConnectionStatus from "./ConnectionStatus";
 const ipcRenderer = window.require("electron").ipcRenderer;
 
