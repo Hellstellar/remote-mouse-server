@@ -6,6 +6,7 @@ import {makeStyles} from "@material-ui/core";
 import {ErrorOutline} from "@material-ui/icons";
 import colors from "../constants/styling/colors"
 
+
 const useStyles = makeStyles({
     typography: {
         color: colors.primary
@@ -23,6 +24,7 @@ const useStyles = makeStyles({
 
 const ConnectionStatus = ({ status, clientMessage }) => {
     const classes = useStyles();
+
     return (
         <>
             { status === EConnectionStatus.CONNECTED &&

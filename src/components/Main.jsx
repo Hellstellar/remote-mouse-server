@@ -1,11 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Title from "./Title";
-import ConnectionStatusLayout from './Layout';
 import {Fade, makeStyles} from "@material-ui/core";
 import colors from '../constants/styling/colors'
+import {EConnectionStatus, EMobileStatusMessage} from "../constants/enums";
+import ConnectionStatus from "./ConnectionStatus";
+const ipcRenderer = window.require("electron").ipcRenderer;
 
 const useStyles = makeStyles({
     root: {
@@ -19,9 +21,16 @@ const useStyles = makeStyles({
 const Main = () => {
     const classes = useStyles()
     const [showStatus, setShowStatus] = useState(false)
+    const [mobileStatus, setMobileStatus] = useState(EConnectionStatus.DISCONNECTED)
     const handleTitleUnmount = () => {
         setShowStatus(true)
     }
+
+    useEffect(() => {
+        ipcRenderer.on('mobile-status', (event, message) => {
+            setMobileStatus(message)
+        })
+    }, [])
     return (
         <React.Fragment>
             <CssBaseline/>
@@ -33,10 +42,10 @@ const Main = () => {
                         style={{minHeight: '100vh'}}
                     >
                         { showStatus ? (
-                                <Grid item xs={12}>
+                                <Grid style={{textAlign: 'center'}} item xs={12}>
                                     <Fade in>
                                         <div>
-                                            <ConnectionStatusLayout/>
+                                            <ConnectionStatus status={mobileStatus} clientMessage={EMobileStatusMessage}/>
                                         </div>
                                     </Fade>
                                 </Grid>

@@ -4,12 +4,6 @@ export const EConnectionStatus = {
     FAILED: 'failed'
 }
 
-export const EHammerspoonStatusMessage = {
-    CONNECTED: 'Connected to hammerspoon',
-    DISCONNECTED: 'Waiting for hammerspoon...',
-    FAILED: 'Failed to connect to hammerspoon'
-}
-
 export const EMobileStatusMessage = {
     CONNECTED: 'Connected to mobile',
     DISCONNECTED: 'Waiting for mobile...',
