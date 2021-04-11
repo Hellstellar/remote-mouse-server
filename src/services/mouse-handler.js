@@ -1,10 +1,13 @@
 const { EMouseEvents } = require("../constants/enums");
-const { moveMouse, getMousePos, mouseClick } = require("robotjs");
+const { moveMouse, getMousePos, mouseClick, getScreenSize } = require("robotjs");
+
+const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
 const moveCursor = (deltaX, deltaY) => {
     const mousePos = getMousePos()
-    const finalPositionX = mousePos.x + Number(deltaX);
-    const finalPositionY = mousePos.y + Number(deltaY);
+    const screenSize = getScreenSize()
+    const finalPositionX = clamp(mousePos.x + Number(deltaX), 0, screenSize.width);
+    const finalPositionY = clamp(mousePos.y + Number(deltaY), 0, screenSize.height);
     moveMouse(finalPositionX, finalPositionY);
 }
 
