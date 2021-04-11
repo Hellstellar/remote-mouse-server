@@ -16,7 +16,10 @@ const mouseEventPicker = (message) => {
             break;
         case EMouseEvents.LEFT_CLICK:
             mouseClick("left")
-            break
+            break;
+        case EMouseEvents.RIGHT_CLICK:
+            mouseClick("right")
+            break;
         default: console.error("Invalid event")
     }
 
