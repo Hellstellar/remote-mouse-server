@@ -1,6 +1,8 @@
 const { app, BrowserWindow, Tray } = require('electron')
 const createWebSocketServer = require("./src/services/web-socket");
 const path = require('path')
+const os = require("os");
+const { ipcMain } = require('electron')
 require('dotenv').config();
 
 let tray, window
@@ -17,14 +19,25 @@ function createWindow () {
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,
+            contextIsolation: false
         }
     })
 
     window.on('closed', () => window = null)
 
+    //TODO: add port finder
     window.loadURL('http://localhost:3000')
 
     //Create Websocket Server
+    setup()
+}
+
+const setup = () => {
+    ipcMain.on('qr-code', (event, message) => {
+        if(message === 'mounted')
+            window.webContents.send('local-ip-address', os.networkInterfaces().en0.find(elm => elm.family === 'IPv4').address)
+    })
+
     const port = process.env.WEBSOCKET_PORT;
     createWebSocketServer(port,  window.webContents)
 }
@@ -51,8 +64,6 @@ const windowPosition = () => {
     const y = Math.round(trayBounds.y + trayBounds.height)
     return { x, y }
 }
-
-
 
 
 app.whenReady().then(() => {

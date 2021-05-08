@@ -3,12 +3,8 @@ const { URL } = require('url');
 const { parse: parseQuery } = require('querystring');
 const WebSocket = require('ws');
 const mouseEventHandler = require('./mouse-handler')
+const {EConnectionStatus} = require("../constants/enums");
 
-const EConnectionStatus = {
-    CONNECTED: 'connected',
-    DISCONNECTED: 'disconnected',
-    FAILED: 'failed'
-}
 
 const mobileClientName = "MobileClient"
 
@@ -40,7 +36,6 @@ const createWebSocketServer = (port, webContents) => {
         handleMobileDisconnected(clients, webContents)
 
         WebSocket.on("message", (message) => {
-            console.log("received: %s", message);
             mouseEventHandler(message)
         });
 

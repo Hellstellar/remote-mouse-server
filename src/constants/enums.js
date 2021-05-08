@@ -4,4 +4,10 @@ const EMouseEvents = {
     RIGHT_CLICK: "RIGHT_CLICK",
 }
 
-module.exports = { EMouseEvents }
+const EConnectionStatus = {
+    CONNECTED: 'connected',
+    DISCONNECTED: 'disconnected',
+    FAILED: 'failed'
+}
+
+module.exports = { EMouseEvents, EConnectionStatus }

@@ -8,14 +8,12 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "concurrently": "^6.0.0",
     "dotenv": "^8.2.0",
-    "electron": "^11.3.0",
+    "qrcode": "^1.4.4",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "robotjs": "^0.6.0",
-    "wait-on": "^5.3.0",
     "web-vitals": "^1.0.1",
     "ws": "^7.4.4"
   },
@@ -25,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "remote-mouse": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\""
+    "remote-mouse": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
+    "postinstall": "electron-builder install-app-deps"
   },
   "eslintConfig": {
     "extends": [
@@ -46,6 +45,9 @@
     ]
   },
   "devDependencies": {
-    "electron-rebuild": "^2.3.5"
+    "electron-builder": "^22.11.1",
+    "concurrently": "^6.0.0",
+    "wait-on": "^5.3.0",
+    "electron": "^12.0.7"
   }
 }

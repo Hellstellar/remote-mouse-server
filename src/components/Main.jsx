@@ -7,6 +7,7 @@ import {Fade, makeStyles} from "@material-ui/core";
 import colors from '../constants/styling/colors'
 import {EConnectionStatus, EMobileStatusMessage} from "../constants/ui-enums";
 import ConnectionStatus from "./ConnectionStatus";
+import QrCode from "./QrCode";
 const ipcRenderer = window.require("electron").ipcRenderer;
 
 const useStyles = makeStyles({
@@ -42,10 +43,11 @@ const Main = () => {
                         style={{minHeight: '100vh'}}
                     >
                         { showStatus ? (
-                                <Grid style={{textAlign: 'center'}} item xs={12}>
+                             <Grid style={{textAlign: 'center'}} item xs={12}>
                                     <Fade in>
                                         <div>
                                             <ConnectionStatus status={mobileStatus} clientMessage={EMobileStatusMessage}/>
+                                            <QrCode/>
                                         </div>
                                     </Fade>
                                 </Grid>
