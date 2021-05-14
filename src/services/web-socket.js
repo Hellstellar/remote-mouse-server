@@ -1,49 +1,69 @@
-const http = require('http');
-const { URL } = require('url');
-const { parse: parseQuery } = require('querystring');
+const {URL} = require('url');
+const {parse: parseQuery} = require('querystring');
 const WebSocket = require('ws');
 const mouseEventHandler = require('./mouse-handler')
 const {EConnectionStatus} = require("../constants/enums");
 
+require('dotenv').config();
 
-const mobileClientName = "MobileClient"
+class WebSocketServer {
+    #mobileClientName = "MobileClient";
+    #clients = {};
+    #serverOrigin;
+    #webSocketServer;
+    #webContents;
+    #port;
 
-const handleMobileDisconnected = (clients, webContents) => {
-    if (clients.mobileClient) {
-        clients.mobileClient.on('close', () => {
-            console.log('mobile disconnected')
-            webContents.send('mobile-status', EConnectionStatus.DISCONNECTED)
-        })
+
+    constructor(webContents) {
+        this.#config()
+        this.#createServer()
+        this.#webContents = webContents
+        this.#listen()
     }
-};
 
-const createWebSocketServer = (port, webContents) => {
-    const serverOrigin = `http://localhost:${port}`;
-    const server = http.createServer();
-    const webSocketServer = new WebSocket.Server({ server });
-    const clients = {}
+    get webSocketServer() {
+        return this.#webSocketServer;
+    }
 
-    webSocketServer.on("connection", (WebSocket,req) => {
-        const url = new URL(req.url, serverOrigin)
-        const queryParams = parseQuery(url.search.substr(1));
+    #config() {
+        this.#port = process.env.WEBSOCKET_PORT;
+        this.#serverOrigin = `http://localhost:${this.#port}`;
+    }
 
-        if(queryParams.clientName === mobileClientName) {
-            webContents.send('mobile-status', EConnectionStatus.CONNECTED)
-            console.log('mobile client connected')
-            clients.mobileClient = WebSocket
-        }
+    #createServer() {
+        this.#webSocketServer = new WebSocket.Server({port: this.#port});
+    }
 
-        handleMobileDisconnected(clients, webContents)
+    #listen() {
+        this.#webSocketServer.on("connection", (WebSocket, req) => {
+            const url = new URL(req.url, this.#serverOrigin)
+            const queryParams = parseQuery(url.search.substr(1));
 
-        WebSocket.on("message", (message) => {
-            mouseEventHandler(message)
+            if (queryParams.clientName === this.#mobileClientName) {
+                this.#webContents.send('mobile-status', EConnectionStatus.CONNECTED)
+                console.log('mobile client connected')
+                this.#clients.mobileClient = WebSocket
+            }
+
+            this.#handleMobileDisconnected(this.#clients)
+
+            WebSocket.on("message", (message) => {
+                mouseEventHandler(message)
+            });
+
         });
+    }
 
-    });
-
-    server.listen(port, () => {
-        console.log(`Data stream server started on port ${port}`);
-    });
+    #handleMobileDisconnected(clients) {
+        if (clients.mobileClient) {
+            clients.mobileClient.on('close', () => {
+                console.log('mobile disconnected')
+                this.#webContents.send('mobile-status', EConnectionStatus.DISCONNECTED)
+            })
+        }
+    };
 }
 
-module.exports = createWebSocketServer;
+
+module.exports = WebSocketServer;

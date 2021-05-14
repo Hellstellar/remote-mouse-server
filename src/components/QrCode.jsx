@@ -21,7 +21,6 @@ const SimplePopover = () => {
         ipcRenderer.send('qr-code', 'mounted')
         ipcRenderer.on('local-ip-address', async (event, message) => {
             try {
-                console.log('here')
                 const response = await QRCode.toDataURL(message)
                 setImageUrl(response)
             } catch (err) {

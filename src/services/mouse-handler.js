@@ -1,5 +1,5 @@
-const { EMouseEvents } = require("../constants/enums");
-const { moveMouse, getMousePos, mouseClick, getScreenSize } = require("robotjs");
+const {EMouseEvents} = require("../constants/enums");
+const {moveMouse, getMousePos, mouseClick, getScreenSize} = require("robotjs");
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
@@ -23,7 +23,8 @@ const mouseEventPicker = (message) => {
         case EMouseEvents.RIGHT_CLICK:
             mouseClick("right")
             break;
-        default: console.error("Invalid event")
+        default:
+            console.error("Invalid event")
     }
 
 }
