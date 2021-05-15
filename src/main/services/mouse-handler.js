@@ -1,4 +1,4 @@
-const {EMouseEvents} = require("../constants/enums");
+const {EMouseEvents} = require("../../constants/enums");
 const {moveMouse, getMousePos, mouseClick, getScreenSize} = require("robotjs");
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);

@@ -2,7 +2,7 @@ const {URL} = require('url');
 const {parse: parseQuery} = require('querystring');
 const WebSocket = require('ws');
 const mouseEventHandler = require('./mouse-handler')
-const {EConnectionStatus} = require("../constants/enums");
+const {EConnectionStatus} = require("../../constants/enums");
 
 require('dotenv').config();
 
@@ -19,7 +19,7 @@ class WebSocketServer {
         this.#config()
         this.#createServer()
         this.#webContents = webContents
-        this.#listen()
+        this.#setEvents()
     }
 
     get webSocketServer() {
@@ -35,7 +35,7 @@ class WebSocketServer {
         this.#webSocketServer = new WebSocket.Server({port: this.#port});
     }
 
-    #listen() {
+    #setEvents() {
         this.#webSocketServer.on("connection", (WebSocket, req) => {
             const url = new URL(req.url, this.#serverOrigin)
             const queryParams = parseQuery(url.search.substr(1));

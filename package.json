@@ -14,7 +14,7 @@
     "web-vitals": "^1.0.1",
     "ws": "^7.4.4"
   },
-  "main": "src/main.js",
+  "main": "src/main/main.js",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

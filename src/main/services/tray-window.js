@@ -19,13 +19,11 @@ class TrayWindow {
                 contextIsolation: false
             }
         })
-
-        this.#trayWindow.on('closed', () => this.#trayWindow = null)
-        //TODO: Port Finder
-        this.#trayWindow.loadURL('http://localhost:3000')
-
         this.#createTray()
         this.#setEvents()
+
+        //TODO: Port Finder
+        this.#trayWindow.loadURL('http://localhost:3000')
     }
 
     get trayWindow() {
@@ -33,6 +31,9 @@ class TrayWindow {
     }
 
     #setEvents() {
+        this.#trayWindow.on('closed', () => this.#trayWindow = null)
+        this.#tray.on('click', () => this.#toggleWindow())
+        this.#tray.on('right-click', () => this.#tray.popUpContextMenu(this.#createMenu()))
         ipcMain.on('mobile-status', (event, message) => {
             if (message === 'changed')
                 this.#showWindow()
@@ -40,9 +41,7 @@ class TrayWindow {
     }
 
     #createTray() {
-        this.#tray = new Tray(path.join(__dirname, '../assets/mouse-outline.png'))
-        this.#tray.on('click', () => this.#toggleWindow())
-        this.#tray.setContextMenu(this.#createMenu());
+        this.#tray = new Tray(path.join(__dirname, '../../assets/mouse-outline.png'))
     }
 
     #createMenu() {
