@@ -19,11 +19,7 @@ const setup = () => {
     app.on('browser-window-blur', () => {
         trayWindow.hide()
     });
-
-
 }
-
-
 
 app.whenReady().then(() => {
     setup()

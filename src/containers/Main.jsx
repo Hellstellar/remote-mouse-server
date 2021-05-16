@@ -4,7 +4,7 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import {Fade, makeStyles} from "@material-ui/core";
 import colors from '../constants/styling/colors'
-import { EConnectionStatus, EMobileStatusMessage } from "../constants/enums";
+import { EConnectionStatus} from "../constants/enums";
 import ConnectionStatus from "../components/ConnectionStatus";
 import QrCode from "../components/QrCode";
 const ipcRenderer = window.require("electron").ipcRenderer;
@@ -40,7 +40,7 @@ const Main = () => {
                     >
                             <Fade in>
                                 <div>
-                                    <ConnectionStatus status={mobileStatus} clientMessage={EMobileStatusMessage}/>
+                                    <ConnectionStatus status={mobileStatus}/>
                                     <br/>
                                     <QrCode/>
                                 </div>

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SimplePopover = () => {
+const QrCode = () => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [imageUrl, setImageUrl] = useState('')
@@ -38,6 +38,7 @@ const SimplePopover = () => {
     };
 
     const open = Boolean(anchorEl);
+    log
     const id = open ? 'simple-popover' : undefined;
 
     return (
@@ -64,4 +65,4 @@ const SimplePopover = () => {
         </div>
     );
 }
-export default SimplePopover
+export default QrCode

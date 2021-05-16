@@ -1,7 +1,7 @@
 import React from 'react';
 import CheckCircleOutlineOutlinedIcon from "@material-ui/icons/CheckCircleOutlineOutlined";
 import Typography from "@material-ui/core/Typography";
-import {EConnectionStatus} from "../constants/enums";
+import {EConnectionStatus, EMobileStatusMessage } from "../constants/enums";
 import {makeStyles} from "@material-ui/core";
 import {ErrorOutline} from "@material-ui/icons";
 import colors from "../constants/styling/colors"
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
     }
 })
 
-const ConnectionStatus = ({ status, clientMessage }) => {
+const ConnectionStatus = ({ status }) => {
     const classes = useStyles();
 
     return (
@@ -30,13 +30,13 @@ const ConnectionStatus = ({ status, clientMessage }) => {
             { status === EConnectionStatus.CONNECTED &&
             <>
                 <CheckCircleOutlineOutlinedIcon className={classes.connected}/>
-                <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.CONNECTED}</Typography>
+                <Typography className={classes.typography} noWrap variant='h5'>{EMobileStatusMessage.CONNECTED}</Typography>
             </>
             }
             { status === EConnectionStatus.DISCONNECTED &&
                 <>
                     <ErrorOutline className={classes.disconnected}/>
-                    <Typography className={classes.typography} noWrap variant='h5'>{clientMessage.DISCONNECTED}</Typography>
+                    <Typography className={classes.typography} noWrap variant='h5'>{EMobileStatusMessage.DISCONNECTED}</Typography>
                 </>
             }
         </>
