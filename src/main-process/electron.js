@@ -3,14 +3,13 @@ const WebSocketServer = require("./services/web-socket");
 const setQrCodeListener = require("./services/qrcode-handler")
 const TrayWindow = require("./services/tray-window");
 
-
-require('electron-reload')(__dirname, {
-    electron: require(`${__dirname}/../../node_modules/electron`)
-});
+if (require("electron-squirrel-startup")) {
+    app.quit();
+}
 
 app.dock.hide()
 
-
+//TODO: Can be functionality of web workers
 const setup = () => {
     const trayWindow = new TrayWindow().trayWindow
     setQrCodeListener(trayWindow.webContents)
@@ -21,7 +20,7 @@ const setup = () => {
     });
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
     setup()
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {

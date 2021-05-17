@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 
 const QrCode = () => {
     const classes = useStyles();
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    const [anchorEl, setAnchorEl] = useState(null);
     const [imageUrl, setImageUrl] = useState('')
 
     useEffect(() => {
@@ -38,7 +38,6 @@ const QrCode = () => {
     };
 
     const open = Boolean(anchorEl);
-    log
     const id = open ? 'simple-popover' : undefined;
 
     return (

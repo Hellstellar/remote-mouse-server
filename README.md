@@ -9,5 +9,9 @@
       `WEBSOCKET_PORT=#port-number`
 
 - Run `yarn install`
-- Run `yarn remote-mouse`
+- Run `yarn remote-mouse:dev`
 - The application will be up and running.
+
+
+### Icons Used from:
+https://icons8.com

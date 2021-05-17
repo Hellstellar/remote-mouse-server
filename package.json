@@ -2,10 +2,24 @@
   "name": "remote-mouse-server",
   "version": "0.1.0",
   "private": true,
+  "main": "src/main-process/electron.js",
+  "homepage": "./",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "remote-mouse:dev": "concurrently \"BROWSER=none yarn start\" \"yarn electron\"",
+    "electron": "wait-on http://localhost:3000 && electron-forge start",
+    "package": "react-scripts build && electron-forge package",
+    "make": "react-scripts build && electron-forge make"
+  },
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
     "dotenv": "^8.2.0",
+    "electron-is-dev": "^2.0.0",
+    "electron-squirrel-startup": "^1.0.0",
     "qrcode": "^1.4.4",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -14,14 +28,22 @@
     "web-vitals": "^1.0.1",
     "ws": "^7.4.4"
   },
-  "main": "src/main/main.js",
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "remote-mouse": "concurrently \"BROWSER=none yarn start\" \"wait-on http://localhost:3000 && electron .\"",
-    "postinstall": "electron-builder install-app-deps"
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.54",
+    "@electron-forge/maker-deb": "^6.0.0-beta.54",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.54",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.54",
+    "@electron-forge/maker-zip": "^6.0.0-beta.54",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "concurrently": "^6.0.0",
+    "electron": "^12.0.7",
+    "electron-reload": "^1.5.0",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "react-test-renderer": "^17.0.2",
+    "wait-on": "^5.3.0"
   },
   "eslintConfig": {
     "extends": [
@@ -41,17 +63,35 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "concurrently": "^6.0.0",
-    "electron": "^12.0.7",
-    "electron-builder": "^22.11.1",
-    "electron-reload": "^1.5.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
-    "react-test-renderer": "^17.0.2",
-    "wait-on": "^5.3.0"
+
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "src/icons/mac/icon.icns",
+        "name": "Remote Mouse"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "remote_mouse_server"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }

@@ -1,5 +1,6 @@
 const {app, BrowserWindow, Tray, Menu, ipcMain} = require('electron')
 const path = require('path')
+const isDev = require("electron-is-dev");
 
 class TrayWindow {
     #trayWindow;
@@ -23,7 +24,8 @@ class TrayWindow {
         this.#setEvents()
 
         //TODO: Port Finder
-        this.#trayWindow.loadURL('http://localhost:3000')
+        //TODO: Can be made async by following builder pattern (Error: browser window methods are not exposed this way)
+        this.#trayWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../../../build/index.html")}`)
     }
 
     get trayWindow() {
@@ -41,7 +43,7 @@ class TrayWindow {
     }
 
     #createTray() {
-        this.#tray = new Tray(path.join(__dirname, '../../assets/mouse-outline.png'))
+        this.#tray = new Tray(path.join(__dirname, '../../icons/png/24x24.png'))
     }
 
     #createMenu() {
