@@ -63,7 +63,9 @@ class TrayWindow {
     #showWindow = () => {
         const position = this.#windowPosition();
         this.#trayWindow.setPosition(position.x, position.y)
+        this.#trayWindow.setVisibleOnAllWorkspaces(true)
         this.#trayWindow.show()
+        this.#trayWindow.focus();
     }
 
     #windowPosition() {

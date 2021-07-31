@@ -31,7 +31,7 @@ class WebSocketServer {
 
     #createServer() {
         this.#webSocketServer = new WebSocket.Server({port: this.#port});
-        console.log('Server started at ', this.#port)
+        console.log('Server started at', this.#port)
     }
 
     #setEvents() {
