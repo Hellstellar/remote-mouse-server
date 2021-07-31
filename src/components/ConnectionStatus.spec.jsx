@@ -6,7 +6,7 @@ import {ErrorOutline} from "@material-ui/icons";
 describe('Connection Status', () => {
     it('should display waiting for mobile when disconnected', () => {
         const connectionStatus = shallow((<ConnectionStatus status={'disconnected'} />))
-        expect(connectionStatus.find(Typography).props().children).toBe('Waiting for mobile...')
+        expect(connectionStatus.find(Typography).props().children).toBe('Waiting to connect...')
     });
 
     it('should render ErrorOutline icon when disconnected', () => {

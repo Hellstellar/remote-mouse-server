@@ -4,8 +4,6 @@ const WebSocket = require('ws');
 const mouseEventHandler = require('./mouse-handler')
 const {EConnectionStatus} = require("../../constants/enums");
 
-require('dotenv').config();
-
 class WebSocketServer {
     #mobileClientName = "MobileClient";
     #clients = {};
@@ -15,8 +13,8 @@ class WebSocketServer {
     #port;
 
 
-    constructor(webContents) {
-        this.#config()
+    constructor(webContents, port) {
+        this.#config(port)
         this.#createServer()
         this.#webContents = webContents
         this.#setEvents()
@@ -26,13 +24,14 @@ class WebSocketServer {
         return this.#webSocketServer;
     }
 
-    #config() {
-        this.#port = process.env.WEBSOCKET_PORT;
+    #config(port) {
+        this.#port = port;
         this.#serverOrigin = `http://localhost:${this.#port}`;
     }
 
     #createServer() {
         this.#webSocketServer = new WebSocket.Server({port: this.#port});
+        console.log('Server started at ', this.#port)
     }
 
     #setEvents() {
@@ -46,7 +45,7 @@ class WebSocketServer {
                 this.#clients.mobileClient = WebSocket
             }
 
-            this.#handleMobileDisconnected(this.#clients)
+            this.#addDisconnectMobileListener()
 
             WebSocket.on("message", (message) => {
                 mouseEventHandler(message)
@@ -55,13 +54,11 @@ class WebSocketServer {
         });
     }
 
-    #handleMobileDisconnected(clients) {
-        if (clients.mobileClient) {
-            clients.mobileClient.on('close', () => {
-                console.log('mobile disconnected')
-                this.#webContents.send('mobile-status', EConnectionStatus.DISCONNECTED)
-            })
-        }
+    #addDisconnectMobileListener() {
+        this.#clients.mobileClient?.on('close', () => {
+            console.log('mobile disconnected')
+            this.#webContents.send('mobile-status', EConnectionStatus.DISCONNECTED)
+        })
     };
 }
 

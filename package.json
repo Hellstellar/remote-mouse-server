@@ -20,6 +20,7 @@
     "dotenv": "^8.2.0",
     "electron-is-dev": "^2.0.0",
     "electron-squirrel-startup": "^1.0.0",
+    "find-free-port": "^2.0.0",
     "qrcode": "^1.4.4",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
@@ -63,12 +64,19 @@
       "last 1 safari version"
     ]
   },
-
   "config": {
     "forge": {
       "packagerConfig": {
         "icon": "src/icons/mac/icon.icns",
-        "name": "Remote Mouse"
+        "name": "Remote Mouse",
+        "osxSign": {
+          "identity": "Apple Development: soorajdube.is@gmail.com (ACYSHC3VSZ)",
+          "hardenedRuntime": true,
+          "gatekeeper-assess": false,
+          "entitlements": "static/entitlements.plist",
+          "entitlements-inherit": "static/entitlements.plist",
+          "signature-flags": "library"
+        }
       },
       "makers": [
         {

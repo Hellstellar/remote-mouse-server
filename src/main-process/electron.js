@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require('electron')
 const WebSocketServer = require("./services/web-socket");
 const setQrCodeListener = require("./services/qrcode-handler")
 const TrayWindow = require("./services/tray-window");
+const findPort = require('find-free-port');
 
 if (require("electron-squirrel-startup")) {
     app.quit();
@@ -10,10 +11,11 @@ if (require("electron-squirrel-startup")) {
 app.dock.hide()
 
 //TODO: Can be functionality of web workers
-const setup = () => {
+const setup = async () => {
     const trayWindow = new TrayWindow().trayWindow
-    setQrCodeListener(trayWindow.webContents)
-    new WebSocketServer(trayWindow.webContents).webSocketServer
+    const [port] = await findPort(4000)
+    setQrCodeListener(trayWindow.webContents, port)
+    new WebSocketServer(trayWindow.webContents, port).webSocketServer
 
     app.on('browser-window-blur', () => {
         trayWindow.hide()
@@ -21,10 +23,10 @@ const setup = () => {
 }
 
 app.whenReady().then(async () => {
-    setup()
-    app.on('activate', () => {
+    await setup()
+    app.on('activate', async () => {
         if (BrowserWindow.getAllWindows().length === 0) {
-            setup()
+            await setup()
         }
     })
 })

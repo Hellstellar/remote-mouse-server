@@ -42,7 +42,7 @@ const Main = () => {
                                 <div>
                                     <ConnectionStatus status={mobileStatus}/>
                                     <br/>
-                                    <QrCode/>
+                                    <QrCode status={mobileStatus}/>
                                 </div>
                             </Fade>
                     </Grid>

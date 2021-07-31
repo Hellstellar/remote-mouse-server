@@ -12,7 +12,7 @@ const EConnectionStatus = {
 
 const EMobileStatusMessage = {
     CONNECTED: 'Connected to mobile',
-    DISCONNECTED: 'Waiting for mobile...',
+    DISCONNECTED: 'Waiting to connect...',
     FAILED: 'Failed to connect to mobile'
 }
 
