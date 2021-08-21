@@ -3,6 +3,7 @@ const {parse: parseQuery} = require('querystring');
 const WebSocket = require('ws');
 const mouseEventHandler = require('./mouse-handler')
 const {EConnectionStatus} = require("../../constants/enums");
+const {ipcMain} = require('electron')
 
 class WebSocketServer {
     #mobileClientName = "MobileClient";
@@ -50,8 +51,11 @@ class WebSocketServer {
             WebSocket.on("message", (message) => {
                 mouseEventHandler(message)
             });
-
         });
+        ipcMain.on('mobile-status', (event, message) => {
+            if (message === 'disconnect')
+                this.#clients.mobileClient?.close();
+        })
     }
 
     #addDisconnectMobileListener() {

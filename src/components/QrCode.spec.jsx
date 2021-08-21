@@ -2,7 +2,6 @@ import {mount} from "enzyme";
 import React from "react";
 import QRCode from "qrcode";
 import QrCode from "./QrCode";
-import {EConnectionStatus} from "../constants/enums";
 
 const { ipcRenderer } = require('electron');
 
@@ -44,7 +43,7 @@ describe("SearchField Enzyme mount() ", () => {
         });
         QRCode.toDataURL.mockResolvedValue('sample url')
 
-        const mountedQrCodeWithImage = mount(<QrCode status={EConnectionStatus.DISCONNECTED}/>)
+        const mountedQrCodeWithImage = mount(<QrCode/>)
         expect(mountedQrCodeWithImage.find('img').props('src')).toBe('sample url');
     });
 })
