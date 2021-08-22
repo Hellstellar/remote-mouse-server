@@ -23,6 +23,9 @@ const mouseEventPicker = (message) => {
         case EMouseEvents.RIGHT_CLICK:
             mouseClick("right")
             break;
+        case EMouseEvents.DOUBLE_CLICK:
+            mouseClick("left", true)
+            break;
         default:
             console.error("Invalid event")
     }
