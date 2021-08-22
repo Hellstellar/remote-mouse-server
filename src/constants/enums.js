@@ -3,6 +3,7 @@ const EMouseEvents = {
     LEFT_CLICK : "LEFT_CLICK",
     RIGHT_CLICK: "RIGHT_CLICK",
     DOUBLE_CLICK: "DOUBLE_CLICK",
+    DRAG: "DRAG"
 }
 
 const EErrors = {
