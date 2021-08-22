@@ -1,6 +1,6 @@
 const {dragMouse} = require("robotjs");
 const {EMouseEvents} = require("../../constants/enums");
-const {moveMouse, getMousePos, mouseClick, getScreenSize} = require("robotjs");
+const {moveMouse, scrollMouse, getMousePos, mouseClick, getScreenSize} = require("robotjs");
 
 const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
@@ -17,10 +17,13 @@ const moveCursor = (deltaX, deltaY, drag= false) => {
 
 const mouseEventPicker = (message) => {
     const [event, deltaX, deltaY] = message.split(' ')
-    console.log(message)
     switch (event) {
         case EMouseEvents.MOVE:
             moveCursor(deltaX, deltaY)
+            break;
+        case EMouseEvents.SCROLL:
+            console.log()
+            scrollMouse(deltaX, deltaY);
             break;
         case EMouseEvents.DRAG:
             moveCursor(deltaX, deltaY, true)
