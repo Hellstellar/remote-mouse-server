@@ -6,10 +6,10 @@ Desktop app for [Remote mouse](https://github.com/Hellstellar/remote-mouse) used
 ### Steps to run the app
 - Download the [Expo go Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) /
   [Expo go IOS](https://apps.apple.com/us/app/expo-go/id982107779) on your mobile.
-- Go to and scan the QR code using the Expo Go app.
+- Go to https://expo.dev/@hellstellar/remote-mouse and scan the QR code using the Expo Go app.
 - Remote mouse mobile will run on your mobile.
 - Download the latest release of remote-mouse-server.
-- Unzip the release and move the unzipped file to applications.
+- Unzip the [release](https://github.com/Hellstellar/remote-mouse-server/releases/download/v0.5.0-alpha/Remote.Mouse-darwin-x64-0.5.0.zip) and move the unzipped file to applications.
 - Run this file by double-clicking on it.
 - You will see the remote mouse icon on the menu bar.
 - Click on it to see the QR-code.
