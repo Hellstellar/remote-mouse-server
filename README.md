@@ -11,7 +11,8 @@ Desktop app for [Remote mouse](https://github.com/Hellstellar/remote-mouse) used
 - Download the [Expo go Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) /
   [Expo go IOS](https://apps.apple.com/us/app/expo-go/id982107779) on your mobile.
 #### Run Desktop app
-- Unzip the downloaded file and move it to applications.
+- Unzip the downloaded file 
+- Move it to applications(only for macOS).
 - Run this file by double-clicking on it.
 - Provide necessary permissions to run the app.
 - You will see the remote mouse icon on the menu bar.
