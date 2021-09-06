@@ -6,7 +6,7 @@ Desktop app for [Remote mouse](https://github.com/Hellstellar/remote-mouse) used
 ### Steps to run the app
 
 #### Download Desktop app
-- Download the latest release of [remote-mouse-server](https://github.com/Hellstellar/remote-mouse-server/releases/download/v0.5.0-alpha/Remote.Mouse-darwin-x64-0.5.0.zip).
+- Download the latest release of [remote-mouse-server](https://github.com/Hellstellar/remote-mouse-server/releases/download/v0.5.3-beta/Remote.Mouse-darwin-x64-0.5.3.zip).
 #### Download Mobile app
 - Download the [Expo go Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) /
   [Expo go IOS](https://apps.apple.com/us/app/expo-go/id982107779) on your mobile.
