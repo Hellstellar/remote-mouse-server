@@ -23,7 +23,6 @@ class TrayWindow {
         this.#createTray()
         this.#setEvents()
 
-        //TODO: Port Finder
         //TODO: Can be made async by following builder pattern (Error: browser window methods are not exposed this way)
         this.#trayWindow.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../../../build/index.html")}`)
     }
@@ -43,7 +42,7 @@ class TrayWindow {
     }
 
     #createTray() {
-        this.#tray = new Tray(path.join(__dirname, '../../icons/png/24x24.png'))
+        this.#tray = new Tray(path.join(__dirname, '../../icons/png/Icon-App-20x20@3x.png'))
     }
 
     #createMenu() {

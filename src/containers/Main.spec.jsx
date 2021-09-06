@@ -3,9 +3,9 @@ import Main from "./Main";
 import {mount, shallow} from "enzyme";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import {Fade} from "@material-ui/core";
 import QrCode from "../components/QrCode";
 import ConnectionStatus from "../components/ConnectionStatus";
+
 const { ipcRenderer } = require('electron');
 
 jest.mock(
@@ -19,8 +19,7 @@ jest.mock(
 jest.mock(
     'electron',
     () => {
-        const mockedElectron = { ipcRenderer: { on: jest.fn(), send: jest.fn() } };
-        return mockedElectron;
+        return {ipcRenderer: {on: jest.fn(), send: jest.fn(), removeAllListeners: jest.fn()}};
     },
     { virtual: true },
 );
@@ -39,19 +38,16 @@ describe("Main Component ", () => {
     });
 
     it("renders a <Grid/> component with expected props", () => {
-        expect(main.find(Grid)).toHaveLength(1)
-        expect(main.find(Grid).prop('justify')).toBe('center');
-        expect(main.find(Grid).prop('alignItems')).toBe('center');
-        expect(main.find(Grid).prop('container')).toEqual(true);
+        expect(main.find(Grid)).toHaveLength(3)
+        expect(main.find('[data-testid="container-grid"]').prop('justify')).toBe('space-around');
+        expect(main.find('[data-testid="container-grid"]').prop('alignItems')).toBe('center');
+        expect(main.find('[data-testid="container-grid"]').prop('container')).toEqual(true);
     });
 
-    it("renders a <Fade/> component with expected props", () => {
-        expect(main.find(Fade)).toHaveLength(1)
-        expect(main.find(Fade).prop('in')).toBe(true);
-        expect(main.find(Fade).get(0).props.children.type).toBe('div')
-    });
-
-    it("renders a <QrCode/> component with expected props", () => {
+    it("renders a <QrCode/> component when mobile status is disconnected with expected props", () => {
+        ipcRenderer.on.mockImplementationOnce((event, callback) => {
+            callback(event, 'disconnected');
+        });
         expect(main.find(QrCode)).toHaveLength(1)
     });
 

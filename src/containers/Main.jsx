@@ -49,6 +49,7 @@ const Main = () => {
             <Container maxWidth="xl" className={classes.root} disableGutters={true}>
                 <Grid
                     container
+                    data-testid="container-grid"
                     alignItems="center"
                     justify="space-around"
                     direction={'column'}
@@ -58,8 +59,9 @@ const Main = () => {
                         <ConnectionStatus status={mobileStatus}/>
                     </Grid>
                     {mobileStatus === EConnectionStatus.CONNECTED ? (<Grid item>
-                        <Fab className={classes.close} onClick={closeConnectionHandler} aria-label="close" size={'medium'}>
+                        <Fab className={classes.close} variant={"extended"} onClick={closeConnectionHandler} aria-label="close" size={'medium'}>
                             <CloseIcon />
+                            Disconnect
                         </Fab>
                     </Grid>) : (<Grid item>
                         <QrCode/>
