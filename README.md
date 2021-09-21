@@ -10,6 +10,9 @@ Desktop app for [Remote mouse](https://github.com/Hellstellar/remote-mouse) used
 #### Download Mobile app
 - Download the [Expo go Android](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_IN&gl=US) /
   [Expo go IOS](https://apps.apple.com/us/app/expo-go/id982107779) on your mobile.
+  
+##### Note: Please ensure mobile and computer are connected to the same wifi
+  
 #### Run Desktop app
 - Unzip the downloaded file 
 - Move it to applications(only for macOS).
