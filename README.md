@@ -1,5 +1,5 @@
 # Remote Mouse Server
-Desktop app for [Remote mouse](https://github.com/Hellstellar/remote-mouse) used to control your Desktop/Laptop mouse from mobile.
+Desktop app for [Remote mouse](https://github.com/Hellstellar/remote-mouse) used to control your Desktop/Laptop mouse from mobile. Currently only for MacOS.
 
 
 ## Try the app
